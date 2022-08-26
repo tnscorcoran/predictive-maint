@@ -12,7 +12,7 @@ spec:
   predictors:
     - annotations:
         predictor_version: '1'
-        seldon.io/svc-name: model-1-pred-demo
+        seldon.io/svc-name: predictive-maint-demo-model-1
         team: opendatahub
       componentSpecs:
         - hpaSpec:
