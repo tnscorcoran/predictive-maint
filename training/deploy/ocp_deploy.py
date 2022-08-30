@@ -14,9 +14,7 @@ import shutil
 run_id = "1"
 project = "ml-workshop"
 
-
 os.environ['OPENSHIFT_CLIENT_PYTHON_DEFAULT_OC_PATH'] = '/opt/app-root/bin/oc'
-
 
 username = os.environ["OPENSHIFT_USERNAME"]
 model_name = 'pred-demo-'+username
@@ -29,11 +27,6 @@ print("Start OCP things...")
 #print('OpenShift server version: {}'.format(oc.get_server_version()))
 token = os.environ["OPENSHIFT_API_LOGIN_TOKEN"]
 server = os.environ["OPENSHIFT_API_LOGIN_SERVER"]
-# server = 'https://api.dbs-indo-1.apac-1.rht-labs.com:6443'
-# token = 'sha256~iXvPcMMp0aTEmWN8HTwgh2BbS3z4X0NKFRwVrIkWlR4'
-
-
-
 
 
 #build from source Docker file
@@ -52,7 +45,7 @@ with oc.api_server(server):
                 build_details = oc.selector(f"bc/{build_name}").object()
                 print(build_details.as_json())
                 
-            print("Starting Build and Wiating.....")
+            print("Starting Build and Waiting. This can take several minutes.....")
             build_exec = oc.start_build([build_name, "--from-dir", current_dir, "--follow", "--build-loglevel", "10"])
             print("Build Finished")
             status = build_exec.status()
