@@ -14,10 +14,13 @@ import shutil
 run_id = "1"
 project = "ml-workshop"
 
-os.environ['OPENSHIFT_CLIENT_PYTHON_DEFAULT_OC_PATH'] = '/tmp/oc'
+
+os.environ['OPENSHIFT_CLIENT_PYTHON_DEFAULT_OC_PATH'] = '/opt/app-root/bin/oc'
 
 
-model_name = 'pred-demo'
+username = os.environ["OPENSHIFT_USERNAME"]
+model_name = 'pred-demo-'+username
+
 model_version = "1"# os.environ["MODEL_VERSION"]
 build_name = f"seldon-model-{model_name}-v{model_version}"
 
@@ -39,7 +42,7 @@ with oc.api_server(server):
         with oc.project(project), oc.timeout(10*60):
             print('OpenShift client version: {}'.format(oc.get_client_version()))
             #print('OpenShift server version: {}'.format(oc.get_server_version()))
-
+            
             build_config = oc.selector(f"bc/{build_name}").count_existing() #.object
             print(oc.get_project_name())
             print(build_config)
@@ -65,7 +68,6 @@ with oc.api_server(server):
             print(applied_template.render(template_data))
             oc.apply(applied_template.render(template_data))
             
-
             
             route_count = oc.selector(f"route/{build_name}").count_existing()
             print(route_count)
@@ -83,3 +85,14 @@ with oc.api_server(server):
                         time.sleep(10)
             else:
                 print(f"Route already exists {service_name}")
+        
+            
+            route = oc.selector(f"route/{service_name}").object()
+            routeHost = route.model.spec.host
+
+            f = open('routeHost.txt', "w")
+            
+            with open('routeHost.txt', 'w') as f:
+                f.write(routeHost)                
+                
+ 

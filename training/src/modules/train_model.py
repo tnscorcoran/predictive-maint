@@ -45,14 +45,8 @@ class MLflow():
 
     def mlflow_grid_search(methodtoexecute, methodarguments):
         with mlflow.start_run(tags= {
-#             "mlflow.source.git.commit" : get_git_revision_hash() ,
-#             "mlflow.user": get_git_user(),
-#             "mlflow.source.git.repoURL": get_git_remote(),
-#             "git_remote": get_git_remote(),
-#             "mlflow.source.git.branch": get_git_branch(),
             "mlflow.docker.image.name": os.getenv("JUPYTER_IMAGE", "LOCAL"),
             "mlflow.source.type": "NOTEBOOK",
-    #         "mlflow.source.name": ipynbname.name()
         }) as run:
             methodtoexecute(**methodarguments)
             record_details(mlflow)
@@ -90,26 +84,7 @@ class trainModel():
         self.val_ds = valDs
         
         
-        
-    
-        
-        
-        
-        
-    def get_git_revision_hash(self):
-        return subprocess.check_output(['git', 'rev-parse', 'HEAD'])
 
-    def get_git_revision_short_hash(self):
-        return subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD'])
-
-    def get_git_remote(self):
-        return subprocess.check_output(['git', 'config', '--get', 'remote.origin.url'])
-
-    def get_git_user(self):
-        return subprocess.check_output(['git', 'config', 'user.name'])
-
-    def get_git_branch(self):
-        return subprocess.check_output(['git', 'branch', '--show-current'])
 
     def get_pip_freeze(self):
         return subprocess.check_output(['pip', 'freeze']).splitlines()
@@ -172,11 +147,7 @@ class trainModel():
             
         self.mlflow = MLflow(self.mlflow).SetUp_Mlflow()
         with self.mlflow.start_run(tags= {
-#                 "mlflow.source.git.commit" : self.get_git_revision_hash() ,
-#                 "mlflow.user": self.get_git_user(),
-#                 "mlflow.source.git.repoURL": self.get_git_remote(),
-#                 "git_remote": self.get_git_remote(),
-#                 "mlflow.source.git.branch": self.get_git_branch(),
+
                 "mlflow.docker.image.name": os.getenv("JUPYTER_IMAGE", "LOCAL"),
                 "mlflow.source.type": "NOTEBOOK",
         #         "mlflow.source.name": ipynbname.name()
