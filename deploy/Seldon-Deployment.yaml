@@ -12,17 +12,17 @@ spec:
   predictors:
     - annotations:
         predictor_version: '1'
-        seldon.io/svc-name: predictive-maint-demo-model-1
+        seldon.io/svc-name: model-1-pred-demo
         team: opendatahub
       componentSpecs:
         - hpaSpec:
-            maxReplicas: 35
+            maxReplicas: 15
             metrics:
               - resource:
                   name: cpu
                   targetAverageUtilization: 80
                 type: Resource
-            minReplicas: 30
+            minReplicas: 10
           spec:
             containers:
               - env:

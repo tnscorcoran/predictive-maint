@@ -1,18 +1,7 @@
 # Setting up the Inference Demo
 
 
-### Prerequisite 1 - Install Virtual Box and its extension pack.
-Instructions to do it are contained on the [Virtual Box Download page](https://www.virtualbox.org/wiki/Downloads).
-If you are using a Mac and have *Homebrew* installed, these commands are a quick way to do it:
-```
-brew install --cask virtualbox
-```
-and then 
-```
-brew install --cask virtualbox-extension-pack
-```
-
-### Prerequisite 2 - Download and unzip the edge-based virtual box for this workshop. 
+### Prerequisite 1 - Download and unzip the edge-based virtual box for this workshop. 
 We've created a virtual machine (VM) you'll run in VirtualBox. It contains all of the libraries, binaries, command line interfaces etc, that you'll need to 
 - interact with, setup and configure your Kafka Streaming service
 - interact with, setup and configure your OpenShift based applications, which will - 
@@ -21,9 +10,9 @@ We've created a virtual machine (VM) you'll run in VirtualBox. It contains all o
 - retrieve images from your webcam feed in realtime and push them to your Kafka Streaming service
 
 Hit this URL to download this virtual box
-[https://www.dropbox.com/s/hd5mttb0spg2r3u/Fedora_VirtualBox_2.ova.zip?dl=0](https://www.dropbox.com/s/hd5mttb0spg2r3u/Fedora_VirtualBox_2.ova.zip?dl=0)
+[https://www.dropbox.com/s/o3tsofeix3eocj2/Fedora-VB3.ova?dl=0](https://www.dropbox.com/s/o3tsofeix3eocj2/Fedora-VB3.ova?dl=0)
 
-You will be prompted to login. It's not required, just click the **X** to close the dialog:
+You may be prompted to login. It's not required, just click the **X** to close the dialog:
 
 <img src="images/2-setup/image60.png" width="230" height="400" />
 
@@ -36,6 +25,21 @@ Depending on your internet speead, this can take several minuites.
 
 Once it's complete unzip the file - by double clicking on it...
 
+
+### Prerequisite 2 - Install Virtual Box and its extension pack.
+Instructions to do it are contained on the [Virtual Box Download page](https://www.virtualbox.org/wiki/Downloads). But in short:
+ - 1 - Download Virtual Box
+ - 2 - Download the extension pack
+ 
+ Then
+ - Install Virtual Box
+ - Grant access to vistual box to your camera, microphone etc
+ - Install the extension pack
+
+![images/2-setup/image62.png](images/2-setup/image62.png)
+
+
+
 ### Prerequisite 3 - a Red Hat Account
 Next, if you don't already have one, set up a free Red Hat Account - where the SaaS service, Red Hat OpenShift Service for Apache Kafka (RHOASAK) is located. Do that at **https://console.redhat.com**. Logout
 
@@ -43,14 +47,16 @@ Next, if you don't already have one, set up a free Red Hat Account - where the S
 ### Prerequisite 4 - an OpenShift cluster, a Username and an OpenShift project to work in
 You instrutor will supply these to you in the Web Meeting Chat. We'll refer to these below as
 ```
-OPENSHIFT_CLUSTER_URL
-YOUR_OPENSHIFT_USERNAME
-YOUR_OPENSHIFT_INFERENCE_PROJECT
+YOUR OPENSHIFT INFERENCE PROJECT	
+YOUR OPENSHIFT USERNAME	
+YOUR OPENSHIFT PASSWORD
+OPENSHIFT CLUSTER URL
 ```
 Once these there are complete, you're ready to begin. 
 
 ## 1 - Open virtual box then open a terminal inside your virtual box. 
-On your laptop, open Virtual Box. A screen like this will appear. Click **Import**:
+On your laptop, open Virtual Box. A screen like this will appear. 
+Click **Import**:
 ![images/2-setup/image44.png](images/2-setup/image44.png)
 - keep the source *Local File System*
 - click the file icon
@@ -108,7 +114,7 @@ You'll be prompted login to your Red Hat Account (you set up previously). A conf
 
 This script will take several minutes to complete. Keep the terminal open, allowing it to continue the Kafka configuration. 
 Feel free to continue from the section below 
-***3 - Login to OpenShift and select your OpenShift project*** - and come back to the script after 6-7 minutes
+***3 - Login to OpenShift and select your YOUR OPENSHIFT INFERENCE PROJECT*** - and come back to the script after 6-7 minutes
 
 
 ### Confirm your Kafka installation
@@ -143,11 +149,12 @@ It should look something like this - though your values will be different:
 ## 3 - Login to OpenShift and select your OpenShift project
 
 #### Login to your OpenShift cluster using both browser and terminal
-1. Log on to OpenShift - by hitting the URL ***OPENSHIFT_CLUSTER_URL*** you got off the Web Meeting Chat earlier. You'll see this screen. Click **openshift-users** 
+1. Log on to OpenShift - by hitting the URL ***OPENSHIFT CLUSTER URL*** you got off the Web Meeting Chat earlier. You'll see this screen. Click **openshift-users** 
 ![images/2-setup/image40.png](images/2-setup/image40.png)
-2. Enter these values and click **Log On**   
-   - the value for ***YOUR_OPENSHIFT_USERNAME*** you got earlier for your username
+2. Enter these values    
+   - ***YOUR OPENSHIFT USERNAME*** that you got earlier from your instructor
    - ***openshift*** for your password 
+3. Click **Log In**
  ![images/2-setup/image41.png](images/2-setup/image41.png) 
 
 
@@ -161,25 +168,21 @@ It should look something like this - though your values will be different:
 Log in and click **Display Token**. 
 
 
-Keep a note of the 2 values for
-     - OPENSHIFT_API_LOGIN_TOKEN
-     - OPENSHIFT_API_LOGIN_SERVER
-   You'll need them for the training demo/workshop later on
 
 Copy the entire ***oc login*** command as far as ***6443*** and paste into your terminal window inside virtual box. Accept the *insecurity* warning.
 
 ![images/2-setup/image19.png](images/2-setup/image19.png)
 
 #### Select your OpenShift project
-Now select your project inside the terminal window. Run the following replacing ***YOUR_OPENSHIFT_INFERENCE_PROJECT*** with yours
+Now select your project inside the terminal window. Run the following replacing ***YOUR OPENSHIFT INFERENCE PROJECT*** with yours
    ```
-   oc project <insert YOUR_OPENSHIFT_INFERENCE_PROJECT here>
+   oc project <insert YOUR OPENSHIFT INFERENCE PROJECT here>
    ```
    i.e. in my case, as I'm user30:
 
 ![images/2-setup/image42.png](images/2-setup/image42.png) 
 
-Now on the OpenShift Web console (either within or outside your Virtual box VM), navigate to Home > Projects and click ***YOUR_OPENSHIFT_INFERENCE_PROJECT***, in my case *a-predictive-maint-user30*
+Now on the OpenShift Web console (either within or outside your Virtual box VM), navigate to Home > Projects and click ***YOUR OPENSHIFT INFERENCE PROJECT***, in my case *a-predictive-maint-user30*
 ![images/2-setup/image53.png](images/2-setup/image53.png) 
 
 
